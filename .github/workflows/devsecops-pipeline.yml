@@ -25,9 +25,9 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Run SAST (Semgrep - non-blocking for demo)
-        run: |
-          pip install semgrep
-          semgrep scan --config=auto || true
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: auto
 
       - name: Log in to JFrog Artifactory Docker Registry
         run: echo $ARTIFACTORY_PASSWORD | docker login $ARTIFACTORY_URL -u $ARTIFACTORY_USER --password-stdin
