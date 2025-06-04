@@ -1,0 +1,5 @@
+backend:
+  image: triald3g81v.jfrog.io/docker-devsecops-local/devsecops-demo-app-backend
+
+frontend:
+  image: triald3g81v.jfrog.io/docker-devsecops-local/devsecops-demo-app-frontend
