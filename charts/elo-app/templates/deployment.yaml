@@ -14,6 +14,9 @@ spec:
       labels:
         app: devsecops-app
     spec:
+      imagePullSecrets:
+        - name: jfrog-registry-secret  
+
       containers:
         - name: backend
           image: {{ .Values.backend.image }}
