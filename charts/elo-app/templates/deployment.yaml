@@ -19,7 +19,14 @@ spec:
           image: {{ .Values.backend.image }}
           ports:
             - containerPort: 3001
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+
         - name: frontend
           image: {{ .Values.frontend.image }}
           ports:
             - containerPort: 3000
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
