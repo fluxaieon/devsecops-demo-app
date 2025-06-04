@@ -1,3 +1,3 @@
-# Secure Device App
+# DevSecOps Demo App
 
 This is a demo project.
