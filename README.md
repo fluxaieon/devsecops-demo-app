@@ -80,6 +80,19 @@ git clone https://github.com/<your-user>/devsecops-demo-app.git
 cd devsecops-demo-app
 git checkout devsecops-demo-pass-pipeline
 
+---
+# Login to JFrog (replace with your creds)
+docker login trial<xyz>.jfrog.io
+
+# Backend
+cd backend
+docker build -t trial<xyz>.jfrog.io/docker-devsecops-local/devsecops-demo-app-backend:latest .
+docker push trial<xyz>.jfrog.io/docker-devsecops-local/devsecops-demo-app-backend:latest
+
+# Frontend
+cd ../frontend
+docker build -t trial<xyz>.jfrog.io/docker-devsecops-local/devsecops-demo-app-frontend:latest .
+docker push trial<xyz>.jfrog.io/docker-devsecops-local/devsecops-demo-app-frontend:latest
 
 # Login to JFrog (replace with your creds)
 docker login trial<xyz>.jfrog.io
@@ -93,3 +106,46 @@ docker push trial<xyz>.jfrog.io/docker-devsecops-local/devsecops-demo-app-backen
 cd ../frontend
 docker build -t trial<xyz>.jfrog.io/docker-devsecops-local/devsecops-demo-app-frontend:latest .
 docker push trial<xyz>.jfrog.io/docker-devsecops-local/devsecops-demo-app-frontend:latest
+
+# Helm install (from project root)
+helm upgrade --install elo-app ./charts/elo-app --namespace dev --create-namespace
+
+# Verify
+kubectl get pods -n dev
+kubectl logs -n dev -l app=devsecops-app -c backend
+kubectl logs -n dev -l app=devsecops-app -c frontend
+
+git add .
+git commit -m "Trigger secure pipeline"
+git push origin devsecops-demo-pass-pipeline
+
+
+devsecops-demo-app/
+├── backend/
+│   ├── index.js
+│   ├── Dockerfile
+│   └── package.json
+├── frontend/
+│   ├── server.js
+│   ├── Dockerfile
+│   ├── package.json
+│   └── public/
+├── charts/elo-app/
+│   ├── Chart.yaml
+│   ├── templates/
+│   │   └── deployment.yaml
+│   └── values.yaml
+├── .github/workflows/devsecops-pipeline.yml
+└── README.md
+
+
+References:
+
+Semgrep: https://semgrep.dev/ 
+
+OWASP ZAP : https://www.zaproxy.org
+
+JFrog Artifactory : https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://jfrog.com/artifactory/&ved=2ahUKEwiq9d2H7diNAxXs3jgGHYlkNOMQFnoECCIQAQ&usg=AOvVaw1wwsKUemrz2YEfObH5jPNV
+
+Kubernetes Kind : https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://kind.sigs.k8s.io/&ved=2ahUKEwiA4uGR7diNAxX_1zgGHQS2FPYQFnoECBYQAQ&usg=AOvVaw2TejnqsY1pFP0Qa5QJ0v6F
+
