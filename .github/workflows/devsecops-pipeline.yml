@@ -3,9 +3,9 @@ name: DevSecOps CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "devsecops-demo-pass-pipeline" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "devsecops-demo-pass-pipeline" ]
 
 jobs:
   build-test-scan-deploy:
