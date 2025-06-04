@@ -1,1 +1,15 @@
-# Kubernetes Service YAML placeholder
+apiVersion: v1
+kind: Service
+metadata:
+  name: devsecops-app-service
+spec:
+  selector:
+    app: devsecops-app
+  ports:
+    - name: frontend
+      port: 3000
+      targetPort: 3000
+    - name: backend
+      port: 3001
+      targetPort: 3001
+  type: ClusterIP
