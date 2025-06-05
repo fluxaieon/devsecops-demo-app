@@ -47,7 +47,6 @@ The `main` branch uses insecure Docker images that:
 The following security fixes are applied:
 - Docker images use non-root numeric UID `1001`
 - CSRF middleware (`csurf`) added in both frontend and backend Express servers
-- Nginx file permission issues resolved in frontend
 - SAST now passes with **zero blocking issues**
 
 ---
