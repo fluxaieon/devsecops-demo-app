@@ -118,6 +118,14 @@ git add .
 git commit -m "Trigger secure pipeline"
 git push origin devsecops-demo-pass-pipeline
 
+git checkout main
+git pull origin main
+
+touch trigger-sast-demo.txt
+git add trigger-sast-demo.txt
+git commit -m "Trigger SAST failure demo"
+git push origin main
+
 
 devsecops-demo-app/
 ├── backend/
